@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:masala_accounts/pages/home/accounts_section.dart';
 import 'package:masala_accounts/pages/home/history_section.dart';
 import 'package:masala_accounts/pages/home/expenses_section.dart';
 import 'package:masala_accounts/pages/home/profile_section.dart';
+import 'package:masala_accounts/objects/account.dart';
+import 'package:masala_accounts/modals/add_account.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,8 +45,16 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          FirebaseAuth.instance.signOut();
+        onPressed: () async {
+          if (index == 0) {
+            showModalBottomSheet(
+              context: context,
+              isDismissible: false,
+              builder: (context) {
+                return const AddAccountModal();
+              },
+            );
+          }
         },
         child: const Icon(Icons.add),
       ),
